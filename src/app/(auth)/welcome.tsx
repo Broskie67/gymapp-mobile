@@ -12,8 +12,8 @@ export default function Welcome() {
       <Logo />
       <Text style={styles.title}>Welcome</Text>
       <View style={{ gap: 16 }}>
-        <Button title="Sign in" variant="outline" onPress={() => router.push("/login")} />
-        <Button title="Sign up" variant="light" onPress={() => router.push("/signup")} />
+        <Button title="Sign in" variant="outline" onPress={() => router.push("/signIn")} />
+        <Button title="Sign up" variant="light" onPress={() => router.push("/signUp")} />
       </View>
     </GradientBackground>
   );
