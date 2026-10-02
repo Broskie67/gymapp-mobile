@@ -1,20 +1,69 @@
-import { Text, View, StyleSheet } from 'react-native'
+import { GradientBackground } from "@/components/gradientBackground";
+import { SignInForm } from "@/components/signInForm";
 import { Colors } from "@/constants/colors";
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 
 export default function SignIn() {
-  <View>
-    <Text>Sign In</Text>
-  </View>
+  return (
+    <KeyboardAvoidingView
+      style={styles.screen}
+      behavior="padding"
+      keyboardVerticalOffset={-10}
+    >
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        bounces={false}
+      >
+        <GradientBackground style={styles.header}>
+          <Text style={styles.title}>Sign In</Text>
+        </GradientBackground>
+
+        <View style={styles.card}>
+          <SignInForm />
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
 }
 
+const H_PADDING = 32;
+const CARD_RADIUS = 28;
+
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 32,
+  screen: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
+  header: {
+    height: 240,
+    justifyContent: "flex-end",
+    alignItems: "flex-start",
+    paddingHorizontal: H_PADDING,
+    paddingBottom: CARD_RADIUS + 28,
   },
   title: {
     color: Colors.text,
-    fontSize: 22,
+    fontSize: 30,
+    fontWeight: "700",
+    letterSpacing: 0.3,
+  },
+  card: {
+    flex: 1,
+    marginTop: -CARD_RADIUS,
+    backgroundColor: "#fff",
+    borderTopLeftRadius: CARD_RADIUS,
+    borderTopRightRadius: CARD_RADIUS,
+    paddingHorizontal: H_PADDING,
+    paddingTop: 40,
   },
 });
