@@ -1,12 +1,14 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { Button } from "./button";
 import { TextLink } from "../components/textLink";
 import { useState } from "react";
 import { Host, Checkbox } from '@expo/ui';
+import { Ionicons } from '@expo/vector-icons';
 
 export function SignInForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = () => {
@@ -27,14 +29,25 @@ export function SignInForm() {
         autoComplete="email"
       />
       <Text style={styles.label}>Password</Text>
-      <TextInput 
-        style={styles.input}
-        secureTextEntry
-        autoCapitalize="none"
-        autoCorrect={false}
-        autoComplete="current-password"   
-        textContentType="password"
-      />
+      <View style={styles.passwordWrapper}>
+        <TextInput 
+          style={styles.passwordInput}
+          secureTextEntry={!showPassword}
+          autoCapitalize="none"
+          autoCorrect={false}
+          autoComplete="current-password"   
+          textContentType="password"
+        />
+        <Pressable
+          onPress={() => setShowPassword(v => !v)}
+          hitSlop={10}
+          accessibilityRole="button"
+          accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}
+        >
+          <Ionicons name={showPassword ? 'eye-off-outline' : 'eye-outline'} size={22} color="#888" />
+        </Pressable>
+      </View>
+      
       <View style={styles.row}>
         <Host matchContents>
           <Checkbox label="Remember me" value={rememberMe} onValueChange={setRememberMe}/>
@@ -47,9 +60,6 @@ export function SignInForm() {
         Don't have an account?{' '}
         <TextLink href="/signUp" style={styles.link} >Sign Up</TextLink>
       </Text>
-        
-
-      
     </View>
   )
 }
@@ -57,6 +67,7 @@ export function SignInForm() {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   label: { fontSize: 13, color: '#888', marginBottom: 6, marginTop: 18 },
+  
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
@@ -64,6 +75,20 @@ const styles = StyleSheet.create({
     padding: 12,
     fontSize: 16,
     marginBottom: 6,
+  },
+  passwordWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    marginBottom: 6,
+  },
+  passwordInput: {
+    flex: 1,
+    paddingVertical: 12,
+    fontSize: 16,
   },
   row: {
     flexDirection: 'row',
