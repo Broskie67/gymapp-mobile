@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
-import { GradientBackground } from "@/components/gradientBackground";
-import  Logo  from "@/components/logo";
+import { Button } from "@/components/common/button";
+import { GradientBackground } from "@/components/common/gradientBackground";
+import Logo from "@/components/common/logo"
 import { Colors } from "@/constants/colors";
 import { router } from "expo-router";
-import { Button } from "@/components/button";
-
+import { StyleSheet, Text, View } from "react-native";
 
 export default function Welcome() {
   return (
@@ -12,8 +11,16 @@ export default function Welcome() {
       <Logo />
       <Text style={styles.title}>Welcome</Text>
       <View style={{ gap: 16 }}>
-        <Button title="Sign in" variant="outline" onPress={() => router.push("/signIn")} />
-        <Button title="Sign up" variant="light" onPress={() => router.push("/signUp")} />
+        <Button
+          title="Sign in"
+          variant="outline"
+          onPress={() => router.push("/signIn")}
+        />
+        <Button
+          title="Sign up"
+          variant="light"
+          onPress={() => router.push("/signUp")}
+        />
       </View>
     </GradientBackground>
   );

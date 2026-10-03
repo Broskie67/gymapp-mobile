@@ -1,12 +1,12 @@
-import { GradientBackground } from "@/components/gradientBackground";
-import { SignInForm } from "@/components/signInForm";
+import { SignInForm } from "@/components/auth/signInForm";
+import { GradientBackground } from "@/components/common/gradientBackground";
 import { Colors } from "@/constants/colors";
 import {
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
+    KeyboardAvoidingView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
 } from "react-native";
 
 export default function SignIn() {

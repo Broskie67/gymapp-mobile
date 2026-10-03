@@ -1,7 +1,7 @@
 import {TextStyle, StyleProp} from "react-native"
 import { Href, Link } from "expo-router";
 import { StyleSheet } from "react-native";
-import { Colors } from "../constants/colors";
+import { Colors } from "@/constants/colors";
 
 type TextLinkProps = { 
   href: Href; 

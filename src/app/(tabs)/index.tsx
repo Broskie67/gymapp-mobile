@@ -1,8 +1,8 @@
 import { StyleSheet, Text } from "react-native";
-import { Card } from "../../components/card";
-import { GradientBackground } from "../../components/gradientBackground";
-import { Greeting } from "../../components/greeting";
-import { TextLink } from "../../components/textLink";
+import { Card } from "../../components/common/card";
+import { GradientBackground } from "../../components/common/gradientBackground";
+import { Greeting } from "../../components/home/greeting";
+import { TextLink } from "../../components/common/textLink";
 import { Colors } from "../../constants/colors";
 
 export default function Index() {
