@@ -4,11 +4,15 @@ import { GradientBackground } from "../../components/common/gradientBackground";
 import { Greeting } from "../../components/home/greeting";
 import { TextLink } from "../../components/common/textLink";
 import { Colors } from "../../constants/colors";
+import { useAuthStore } from '@/store/authStore';
+
+
 
 export default function Index() {
+  const currentUser = useAuthStore((state) => state.currentUser)
   return (
     <GradientBackground>
-      <Greeting name="Nathan" />
+      <Greeting name={currentUser?.username} />
       <Card title="Your personal selection of the day">
         <Text style={styles.body}>No custom selection</Text>
         <Text style={styles.body}>

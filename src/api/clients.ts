@@ -7,6 +7,13 @@ type Options = {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
   body?: unknown
 }
+type ApiResponse<T> = {
+  status: number
+  message: string
+  data: T
+  path: string
+  timestamp: string
+}
 
 export async function request<T>(
   path: string,
@@ -25,5 +32,7 @@ export async function request<T>(
     throw new Error(`Response status: ${res.status}`)
   }
 
-  return res.json()
+  const json: ApiResponse<T> = await res.json()
+
+  return json.data
 }

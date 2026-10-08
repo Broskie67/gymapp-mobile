@@ -4,10 +4,9 @@ import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { Button } from "../common/button";
 import { TextLink } from "../common/textLink";
-import { router } from 'expo-router'
+import { useAuthStore } from "@/store/authStore";
 
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { login } from '@/api/auth'
 
 type SignInData = {
   email: string;
@@ -26,10 +25,11 @@ export function SignInForm() {
     defaultValues: { email: "", password: "", rememberMe: false },
   });
 
+  const login = useAuthStore((state) => state.login)
+
   const onSubmit: SubmitHandler<SignInData> = async (data) => {
     try{
-      const result = await login(data.email, data.password)
-      console.log(result)
+      await login(data.email, data.password)
     }
     catch(error){
       console.log(error)

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Colors } from "../../constants/colors";
 
-type GreetingProps = { name: string };
+type GreetingProps = { name?: string };
 
 export function Greeting({ name }: GreetingProps) {
   const day = new Date().toLocaleDateString("en-US", { weekday: "long" });

@@ -4,6 +4,7 @@ import {
   Inter_400Regular, 
   Inter_500Medium, Inter_700Bold 
 } from "@expo-google-fonts/inter";
+import { useAuthStore } from '@/store/authStore';
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({ 
@@ -12,9 +13,12 @@ export default function RootLayout() {
     Inter_700Bold 
   });
 
+  const currentUser = useAuthStore((state) => state.currentUser)
+
   if (!fontsLoaded) return null;
 
-  const isLoggedIn = false
+  const isLoggedIn = !!currentUser
+
   return (
     <Stack screenOptions={{headerShown: false}}>
       <Stack.Protected guard={isLoggedIn}>
