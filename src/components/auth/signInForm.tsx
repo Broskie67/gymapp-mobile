@@ -5,6 +5,7 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { Button } from "../common/button";
 import { TextLink } from "../common/textLink";
 import { useAuthStore } from "@/store/authStore";
+import { ApiError } from "@/api/clients";
 
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
@@ -20,6 +21,7 @@ export function SignInForm() {
   const {
     handleSubmit,
     control,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<SignInData>({
     defaultValues: { email: "", password: "", rememberMe: false },
@@ -32,7 +34,11 @@ export function SignInForm() {
       await login(data.email, data.password)
     }
     catch(error){
-      console.log(error)
+      if (error instanceof ApiError) {
+        setError('root', { message: error.message })
+      } else {
+        setError('root', { message: 'Impossible de joindre le serveur' })
+      }
     }
     
   };
@@ -122,7 +128,9 @@ export function SignInForm() {
           Forgot password
         </TextLink>
       </View>
-
+      {errors.root && (
+        <Text style={styles.error}>{errors.root.message}</Text>
+      )}
       <Button
         title={isSubmitting ? "Signing in..." : "Sign in"}
         onPress={handleSubmit(onSubmit)}

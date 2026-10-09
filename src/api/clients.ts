@@ -15,6 +15,12 @@ type ApiResponse<T> = {
   timestamp: string
 }
 
+export class ApiError extends Error {
+  constructor(public status: number, message: string) {
+    super(message)
+  }
+}
+
 export async function request<T>(
   path: string,
   { method = 'GET', body }: Options = {},
@@ -29,7 +35,8 @@ export async function request<T>(
     body: body ? JSON.stringify(body) : undefined
   })
   if(!res.ok){
-    throw new Error(`Response status: ${res.status}`)
+    const errorBody = await res.json()
+    throw new ApiError(res.status, errorBody.message ?? `Erreur ${res.status}`)
   }
 
   const json: ApiResponse<T> = await res.json()
