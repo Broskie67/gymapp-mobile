@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { Colors } from "../constants/colors";
+import { Colors } from "@/constants/colors";
 
 type CardProps = { title: string; children: React.ReactNode };
 

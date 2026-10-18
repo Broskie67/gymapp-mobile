@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, ViewStyle, StyleProp } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "@/constants/colors";
 
@@ -8,9 +8,11 @@ type ButtonProps = {
   title: string;
   onPress: () => void;
   variant?: Varient;
+  fullWidth?: boolean;
+  style?: StyleProp<ViewStyle>;
 };
 
-export function Button({title, onPress, variant = "gradient"}: ButtonProps) {
+export function Button({title, onPress, variant = "gradient", fullWidth = false, style}: ButtonProps) {
   const label = (
     <Text style={[styles.text, variant === "light" && styles.textDark]}>
       {title.toUpperCase()}
@@ -22,8 +24,10 @@ export function Button({title, onPress, variant = "gradient"}: ButtonProps) {
       onPress={onPress}
       style={({ pressed }) => [
         styles.base,
+        fullWidth && styles.fullWidth,
         variant === "outline" && styles.outline,
         pressed && styles.pressed,
+        style
       ]}
     >
       {variant === "light" ? (
@@ -74,5 +78,8 @@ const styles = StyleSheet.create({
   },
   pressed: {
     opacity: 0.8,
+  },
+  fullWidth: {
+    width: "100%",
   },
 });
