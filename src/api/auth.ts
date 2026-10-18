@@ -1,11 +1,16 @@
 import { request } from './clients'
-import { PublicUser } from '../types/user'
+import type { AuthResponse } from '../types/auth'
 
-type AuthResponse = {
-  token: string
-  user: PublicUser
+export const login = (email: string, password: string, rememberMe = false) => {
+  return request<AuthResponse>('/auth/login', { 
+    method:'POST', 
+    body: { email, password, rememberMe }
+  })
 }
 
-export const login = (email: string, password: string) => {
-  return request<AuthResponse>('/auth/login', { method:'POST', body: { email, password }})
+export const refresh = (refreshToken: string) => {
+  return request<AuthResponse>('/auth/refresh', {
+    method: 'POST',
+    body: { refreshToken },
+  })
 }

@@ -31,7 +31,7 @@ export function SignInForm() {
 
   const onSubmit: SubmitHandler<SignInData> = async (data) => {
     try{
-      await login(data.email, data.password)
+      await login(data.email, data.password, data.rememberMe)
     }
     catch(error){
       if (error instanceof ApiError) {
