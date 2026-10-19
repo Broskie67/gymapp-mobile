@@ -21,6 +21,7 @@ export function SignUpForm() {
     handleSubmit,
     control,
     setError,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<SignUpData>({
     defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
@@ -41,7 +42,7 @@ export function SignUpForm() {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            style={[styles.input]}
+            style={[styles.input, errors.name && styles.inputError]}
             value={value}
             onChangeText={onChange}
             onBlur={onBlur}
@@ -54,6 +55,7 @@ export function SignUpForm() {
           />
         )}
       />
+      {errors.name && <Text style={styles.error}>{errors.name.message}</Text>}
       <Text style={styles.label}>Email</Text>
       <Controller
         control={control}
@@ -64,7 +66,7 @@ export function SignUpForm() {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            style={[styles.input]}
+            style={[styles.input, errors.email && styles.inputError]}
             value={value}
             onChangeText={onChange}
             onBlur={onBlur}
@@ -74,6 +76,7 @@ export function SignUpForm() {
           />
         )}
       />
+      {errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
       <Text style={styles.label}>Password</Text>
       <Controller
         control={control}
@@ -81,7 +84,10 @@ export function SignUpForm() {
         rules={{ required: "Password is required" }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View
-            style={styles.passwordWrapper}
+            style={[
+              styles.passwordWrapper,
+              errors.password && styles.inputError,
+            ]}
           >
             <TextInput
               style={styles.passwordInput}
@@ -111,14 +117,24 @@ export function SignUpForm() {
           </View>
         )}
       />
+      {errors.password && (
+        <Text style={styles.error}>{errors.password.message}</Text>
+      )}
       <Text style={styles.label}>Confirm password</Text>
       <Controller
         control={control}
         name="confirmPassword"
-        rules={{ required: "Confirm password is required" }}
+        rules={{
+          required: "Confirm password is required",
+          validate: (value) =>
+            value === getValues("password") || "Passwords do not match",
+        }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View
-            style={styles.passwordWrapper}
+            style={[
+              styles.passwordWrapper,
+              errors.confirmPassword && styles.inputError,
+            ]}
           >
             <TextInput
               style={styles.passwordInput}
@@ -145,10 +161,16 @@ export function SignUpForm() {
                 color="#888"
               />
             </Pressable>
+            
           </View>
         )}
       />
-
+      {errors.confirmPassword && (
+        <Text style={styles.error}>{errors.confirmPassword.message}</Text>
+      )}
+      {errors.root && (
+        <Text style={styles.error}>{errors.root.message}</Text>
+      )}
       <Button
         title={isSubmitting ? "Signing in..." : "Sign Up"}
         onPress={handleSubmit(onSubmit)}
