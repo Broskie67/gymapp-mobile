@@ -8,6 +8,13 @@ export const login = (email: string, password: string, rememberMe = false) => {
   })
 }
 
+export const register = (username: string, email: string, password: string) => {
+  return request<AuthResponse>('/auth/register', {
+    method:'POST',
+    body:{ username, email, password}
+  })
+}
+
 export const refresh = (refreshToken: string) => {
   return request<AuthResponse>('/auth/refresh', {
     method: 'POST',

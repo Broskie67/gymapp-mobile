@@ -8,7 +8,7 @@ import { ApiError } from "@/api/clients";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 type SignUpData = {
-  name: string;
+  username: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -24,11 +24,22 @@ export function SignUpForm() {
     getValues,
     formState: { errors, isSubmitting },
   } = useForm<SignUpData>({
-    defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
+    defaultValues: { username: "", email: "", password: "", confirmPassword: "" },
   });
 
-  const onSubmit: SubmitHandler<SignUpData> = async (data) => {
+  const register = useAuthStore((state) => state.register)
 
+  const onSubmit: SubmitHandler<SignUpData> = async (data) => {
+    try {
+      await register(data.username, data.email, data.password)
+    }
+    catch(error){
+      if(error instanceof ApiError) {
+        setError('root', { message: error.message })
+      } else {
+        setError('root', { message: 'Impossible de joindre le serveur' })
+      } 
+    }
   }
 
   return (
@@ -36,13 +47,13 @@ export function SignUpForm() {
       <Text style={styles.label}>Full name</Text>
       <Controller
         control={control}
-        name="name"
+        name="username"
         rules={{
           required: "Name is required"
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            style={[styles.input, errors.name && styles.inputError]}
+            style={[styles.input, errors.username && styles.inputError]}
             value={value}
             onChangeText={onChange}
             onBlur={onBlur}
@@ -55,7 +66,7 @@ export function SignUpForm() {
           />
         )}
       />
-      {errors.name && <Text style={styles.error}>{errors.name.message}</Text>}
+      {errors.username && <Text style={styles.error}>{errors.username.message}</Text>}
       <Text style={styles.label}>Email</Text>
       <Controller
         control={control}
