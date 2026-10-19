@@ -1,4 +1,3 @@
-import { Checkbox, Host } from "@expo/ui";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
@@ -111,19 +110,6 @@ export function SignInForm() {
       )}
 
       <View style={styles.row}>
-        <Controller
-          control={control}
-          name="rememberMe"
-          render={({ field: { onChange, value } }) => (
-            <Host matchContents>
-              <Checkbox
-                label="Remember me"
-                value={value}
-                onValueChange={onChange}
-              />
-            </Host>
-          )}
-        />
         <TextLink href="/" style={styles.forgot}>
           Forgot password
         </TextLink>

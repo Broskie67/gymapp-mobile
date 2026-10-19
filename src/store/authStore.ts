@@ -19,18 +19,16 @@ export const useAuthStore = create<AuthState>()((set) => ({
   accessToken: null,
   isRestoring: true,
 
-  login: async (email, password, rememberMe) => {
-    const { user, tokens } = await authApi.login(email, password, rememberMe)
+  login: async (email, password) => {
+    const { user, tokens } = await authApi.login(email, password)
     set({ currentUser: user, accessToken: tokens.accessToken })
-
-    if(rememberMe) await SecureStore.setItemAsync('refreshToken', tokens.refreshToken)
-    else await SecureStore.deleteItemAsync('refreshToken')
-    
+    await SecureStore.setItemAsync('refreshToken', tokens.refreshToken)
   },
 
   register: async (username, email, password ) => {
     const { user, tokens } = await authApi.register(username, email, password)
     set({ currentUser: user, accessToken: tokens.accessToken})
+    await SecureStore.setItemAsync('refreshToken', tokens.refreshToken)
   },
 
   restoreSession: async () => {
