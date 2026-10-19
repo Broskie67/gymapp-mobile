@@ -1,10 +1,17 @@
 import { request } from './clients'
 import type { AuthResponse } from '../types/auth'
 
-export const login = (email: string, password: string, rememberMe = false) => {
+export const login = (email: string, password: string) => {
   return request<AuthResponse>('/auth/login', { 
     method:'POST', 
-    body: { email, password, rememberMe }
+    body: { email, password }
+  })
+}
+
+export const register = (username: string, email: string, password: string) => {
+  return request<AuthResponse>('/auth/register', {
+    method:'POST',
+    body:{ username, email, password}
   })
 }
 

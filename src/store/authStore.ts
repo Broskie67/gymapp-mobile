@@ -9,6 +9,7 @@ type AuthState = {
   accessToken: string | null
   isRestoring: boolean
   login: (email: string, password: string, rememberMe: boolean) => Promise<void>
+  register: (username: string, email: string, password: string) => Promise<void>
   restoreSession: () => Promise<void>
   logout: () => void
 }
@@ -18,13 +19,16 @@ export const useAuthStore = create<AuthState>()((set) => ({
   accessToken: null,
   isRestoring: true,
 
-  login: async (email, password, rememberMe) => {
-    const { user, tokens } = await authApi.login(email, password, rememberMe)
+  login: async (email, password) => {
+    const { user, tokens } = await authApi.login(email, password)
     set({ currentUser: user, accessToken: tokens.accessToken })
+    await SecureStore.setItemAsync('refreshToken', tokens.refreshToken)
+  },
 
-    if(rememberMe) await SecureStore.setItemAsync('refreshToken', tokens.refreshToken)
-    else await SecureStore.deleteItemAsync('refreshToken')
-    
+  register: async (username, email, password ) => {
+    const { user, tokens } = await authApi.register(username, email, password)
+    set({ currentUser: user, accessToken: tokens.accessToken})
+    await SecureStore.setItemAsync('refreshToken', tokens.refreshToken)
   },
 
   restoreSession: async () => {
