@@ -98,7 +98,7 @@ export function SignInForm() {
               }
             >
               <Ionicons
-                name={showPassword ? "eye-off-outline" : "eye-outline"}
+                name={showPassword ? "eye-outline" : "eye-off-outline"}
                 size={22}
                 color="#888"
               />

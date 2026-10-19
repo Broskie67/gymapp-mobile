@@ -15,6 +15,8 @@ type SignUpData = {
 }
 
 export function SignUpForm() {
+   const [showPassword, setShowPassword] = useState(false);
+   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const {
     handleSubmit,
     control,
@@ -86,11 +88,26 @@ export function SignUpForm() {
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
+              secureTextEntry={!showPassword}
               autoCapitalize="none"
               autoCorrect={false}
               autoComplete="current-password"
               textContentType="password"
             />
+            <Pressable
+              onPress={() => setShowPassword((v) => !v)}
+              hitSlop={10}
+              accessibilityRole="button"
+              accessibilityLabel={
+                showPassword ? "Hide password" : "Show password"
+              }
+            >
+              <Ionicons
+                name={showPassword ? "eye-outline" : "eye-off-outline"}
+                size={22}
+                color="#888"
+              />
+            </Pressable>
           </View>
         )}
       />
@@ -108,12 +125,26 @@ export function SignUpForm() {
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
-              
+              secureTextEntry={!showConfirmPassword}
               autoCapitalize="none"
               autoCorrect={false}
               autoComplete="current-password"
               textContentType="password"
             />
+            <Pressable
+              onPress={() => setShowConfirmPassword((v) => !v)}
+              hitSlop={10}
+              accessibilityRole="button"
+              accessibilityLabel={
+                showPassword ? "Hide password" : "Show password"
+              }
+            >
+              <Ionicons
+                name={showConfirmPassword ? "eye-outline" : "eye-off-outline"}
+                size={22}
+                color="#888"
+              />
+            </Pressable>
           </View>
         )}
       />
