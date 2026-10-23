@@ -1,9 +1,9 @@
 import { StyleSheet, Text, Pressable } from "react-native";
-import { Card } from "../../components/common/card";
-import { GradientBackground } from "../../components/common/gradientBackground";
-import { Greeting } from "../../components/home/greeting";
-import { TextLink } from "../../components/common/textLink";
-import { Colors } from "../../constants/colors";
+import { Card } from "../../../components/common/card";
+import { GradientBackground } from "../../../components/common/gradientBackground";
+import { Greeting } from "../../../components/home/greeting";
+import { TextLink } from "../../../components/common/textLink";
+import { Colors } from "../../../constants/colors";
 import { useAuthStore } from '@/store/authStore';
 
 

@@ -1,8 +1,11 @@
 import { Tabs } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import BurgerButton from '@/components/common/burgerButton';
 
 export default function TabLayout() {
+  const ACTIVE = '#ffd33d'
+  const INACTIVE = '#fff'
   return (
     <Tabs
       screenOptions={{
@@ -12,19 +15,21 @@ export default function TabLayout() {
           elevation: 0,
           shadowOpacity: 0,
         },
-        tabBarInactiveTintColor: "#fff",
-        tabBarActiveTintColor: '#ffd33d',
+        tabBarInactiveTintColor: INACTIVE,
+        tabBarActiveTintColor: ACTIVE,
         headerStyle: { backgroundColor: "#15182B"},
         headerTintColor: "#fff",
         headerShadowVisible: false,
+        headerShown: true,
+        headerLeft: () => <BurgerButton/>
       }}
     >
       <Tabs.Screen
        name="index" 
        options={{ 
         title: 'Home', 
-        tabBarIcon: ({ color, focused}) => (
-          <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} />
+        tabBarIcon: ({ focused}) => (
+          <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={focused ? ACTIVE : INACTIVE} size={24} />
         )
         }} />
       <Tabs.Screen 
@@ -32,7 +37,7 @@ export default function TabLayout() {
       options={{ 
         title: 'Workouts',
         tabBarIcon: ({ color, focused }) => (
-          <MaterialCommunityIcons name="weight-lifter" size={24} color={color} />
+          <MaterialCommunityIcons name="weight-lifter" size={24} color={focused ? ACTIVE : INACTIVE} />
         )
         }} />
     </Tabs>

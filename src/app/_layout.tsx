@@ -6,6 +6,7 @@ import {
 } from "@expo-google-fonts/inter";
 import { useAuthStore } from '@/store/authStore';
 import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({ 
@@ -27,13 +28,15 @@ export default function RootLayout() {
   const isLoggedIn = !!currentUser
 
   return (
-    <Stack screenOptions={{headerShown: false}}>
-      <Stack.Protected guard={isLoggedIn}>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack.Protected>
-      <Stack.Protected guard={!isLoggedIn}>
-        <Stack.Screen name="(auth)" />
-      </Stack.Protected>
-    </Stack>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack screenOptions={{headerShown: false}}>
+        <Stack.Protected guard={isLoggedIn}>
+          <Stack.Screen name="(drawer)" />
+        </Stack.Protected>
+        <Stack.Protected guard={!isLoggedIn}>
+          <Stack.Screen name="(auth)" />
+        </Stack.Protected>
+      </Stack>
+    </GestureHandlerRootView>  
   );
 }
