@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoutText: {
-    color: Colors.text,   // adapte à une couleur de ton fichier colors
+    color: Colors.text,
     fontFamily: 'Inter_500Medium',
 },
 });

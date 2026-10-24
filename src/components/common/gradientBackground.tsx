@@ -1,4 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleProp, ViewStyle } from "react-native";
 import { Colors } from "@/constants/colors";
 
@@ -13,9 +14,11 @@ export function GradientBackground({ children, style }: GradientBackgroundProps)
       colors={[Colors.gradientStart, Colors.gradientEnd]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
-      style={[{ flex: 1, padding: 20 }, style]}
+      style={[{ flex: 1 }]}
     >
-      {children}
+      <SafeAreaView style={[{ flex: 1, padding: 20 }, style]}>
+        {children}
+      </SafeAreaView>
     </LinearGradient>
   );
 }
