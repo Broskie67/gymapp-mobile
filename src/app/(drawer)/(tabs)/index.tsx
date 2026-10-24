@@ -11,7 +11,7 @@ export default function Index() {
   const currentUser = useAuthStore((state) => state.currentUser)
   const logout = useAuthStore((state) => state.logout)
   return (
-    <GradientBackground>
+    <GradientBackground edges={[]}>
       <Greeting name={currentUser?.username} />
       <Card title="Your personal selection of the day">
         <Text style={styles.body}>No custom selection</Text>
@@ -23,9 +23,6 @@ export default function Index() {
       <Card title="Upcoming">
         <Text style={styles.body}>No upcoming</Text>
       </Card>
-      <Pressable onPress={logout} style={styles.logoutButton}>
-        <Text style={styles.logoutText}>Se déconnecter</Text>
-      </Pressable>
     </GradientBackground>
   );
 }
