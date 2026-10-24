@@ -5,7 +5,7 @@ import { Colors } from "@/constants/colors";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Welcome() {
+export default function Index() {
   return (
     <GradientBackground style={styles.container}>
       <Logo />
