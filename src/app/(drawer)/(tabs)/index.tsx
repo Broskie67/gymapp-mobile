@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Pressable } from "react-native";
+import { StyleSheet, Text} from "react-native";
 import { Card } from "../../../components/common/card";
 import { GradientBackground } from "../../../components/common/gradientBackground";
 import { Greeting } from "../../../components/home/greeting";
@@ -9,7 +9,6 @@ import { useAuthStore } from '@/store/authStore';
 
 export default function Index() {
   const currentUser = useAuthStore((state) => state.currentUser)
-  const logout = useAuthStore((state) => state.logout)
   return (
     <GradientBackground edges={[]}>
       <Greeting name={currentUser?.username} />

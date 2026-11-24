@@ -6,7 +6,7 @@ export default function BurgerButton() {
   const navigation = useNavigation();
   return (
     <Pressable onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-      <Ionicons name="menu" size={28} color="white" />
+      <Ionicons name="menu" size={36} color="white" />
     </Pressable>
   );
 }

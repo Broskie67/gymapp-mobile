@@ -21,7 +21,9 @@ export default function TabLayout() {
         headerTintColor: "#fff",
         headerShadowVisible: false,
         headerShown: true,
-        headerLeft: () => <BurgerButton/>
+        headerTitleAlign: 'left',
+        headerLeft: () => <BurgerButton/>,
+        headerLeftContainerStyle: { paddingLeft: 16, paddingRight: 12 },
       }}
     >
       <Tabs.Screen
