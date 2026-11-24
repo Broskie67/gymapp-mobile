@@ -1,9 +1,10 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { DrawerContentScrollView, type DrawerContentComponentProps } from "expo-router/drawer";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Switch } from "react-native";
 import { useAuthStore } from "@/store/authStore";
 import { Colors } from "@/constants/colors";
 import { Button } from "../common/button";
+import { useSettingsStore } from "@/store/settingsStore";
 
 const SECTIONS = [
   {
@@ -16,13 +17,16 @@ const SECTIONS = [
   },
   {
     title: "App settings",
-    items: ["Notifications", "Theme", "Units (kg/lb)"],
+    items: ["Notifications", "Theme"],
+    hasToggleUnit: true
   },
 ];
 
 export function DrawerContent(props: DrawerContentComponentProps) {
   const currentUser = useAuthStore((s) => s.currentUser);
   const logout = useAuthStore((s) => s.logout);
+  const unit = useSettingsStore((s) => s.unit)
+  const setUnit = useSettingsStore((s) => s.setUnit)
 
   return (
     <LinearGradient
@@ -46,6 +50,20 @@ export function DrawerContent(props: DrawerContentComponentProps) {
             {section.items.map((item) => (
               <Text key={item} style={styles.item}>{item}</Text>
             ))}
+            {section.hasToggleUnit && (
+              <View style={styles.unitRow}>
+                <View style={styles.unitToggle}>
+                  <Text style={[styles.item, unit === "kg" && styles.active]}>kg</Text>
+                  <Switch
+                    value={unit === "lb"}
+                    onValueChange={(v) => setUnit(v ? "lb" : "kg")}
+                    trackColor={{ false: "#3a3f5c", true: "#ffd33d" }}
+                    thumbColor="#fff"
+                  />
+                  <Text style={[styles.item, unit === "lb" && styles.active]}>lb</Text>
+                </View>
+              </View>
+            )}
           </View>
         ))}
 
@@ -68,6 +86,9 @@ const styles = StyleSheet.create({
   name: { color: Colors.text, fontSize: 14, marginBottom: 8 },
   email: { color: Colors.text, fontSize: 13 },
   section: { marginBottom: 24 },
+  unitRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingVertical: 8 },
+  unitToggle: { flexDirection: "row", alignItems: "center", gap: 8 },
+  active: { color: "#ffd33d" },
   sectionTitle: { color: Colors.text, fontFamily: "Inter_700Bold", fontSize: 18, marginBottom: 8 },
   item: { color: Colors.text, fontSize: 14, paddingVertical: 8, paddingLeft: 12 },
   logout: { marginTop: "auto", marginBottom: 24, width: 225 }
