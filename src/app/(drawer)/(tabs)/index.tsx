@@ -1,17 +1,16 @@
-import { StyleSheet, Text, Pressable } from "react-native";
-import { Card } from "../../components/common/card";
-import { GradientBackground } from "../../components/common/gradientBackground";
-import { Greeting } from "../../components/home/greeting";
-import { TextLink } from "../../components/common/textLink";
-import { Colors } from "../../constants/colors";
+import { StyleSheet, Text} from "react-native";
+import { Card } from "../../../components/common/card";
+import { GradientBackground } from "../../../components/common/gradientBackground";
+import { Greeting } from "../../../components/home/greeting";
+import { TextLink } from "../../../components/common/textLink";
+import { Colors } from "../../../constants/colors";
 import { useAuthStore } from '@/store/authStore';
 
 
 export default function Index() {
   const currentUser = useAuthStore((state) => state.currentUser)
-  const logout = useAuthStore((state) => state.logout)
   return (
-    <GradientBackground>
+    <GradientBackground edges={[]}>
       <Greeting name={currentUser?.username} />
       <Card title="Your personal selection of the day">
         <Text style={styles.body}>No custom selection</Text>
@@ -23,9 +22,6 @@ export default function Index() {
       <Card title="Upcoming">
         <Text style={styles.body}>No upcoming</Text>
       </Card>
-      <Pressable onPress={logout} style={styles.logoutButton}>
-        <Text style={styles.logoutText}>Se déconnecter</Text>
-      </Pressable>
     </GradientBackground>
   );
 }
@@ -41,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoutText: {
-    color: Colors.text,   // adapte à une couleur de ton fichier colors
+    color: Colors.text,
     fontFamily: 'Inter_500Medium',
 },
 });

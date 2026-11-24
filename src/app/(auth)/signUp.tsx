@@ -1,5 +1,5 @@
 import { SignUpForm } from '@/components/auth/signUpForm';
-import { GradientBackground } from "@/components/common/gradientBackground";
+import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "@/constants/colors";
 import {
     KeyboardAvoidingView,
@@ -21,9 +21,14 @@ export default function SignUp() {
         keyboardShouldPersistTaps="handled"
         bounces={false}
       >
-        <GradientBackground style={styles.header}>
+        <LinearGradient
+          colors={[Colors.gradientStart, Colors.gradientEnd]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.header}
+        >
           <Text style={styles.title}>Sign Up</Text>
-        </GradientBackground>
+        </LinearGradient>
   
         <View style={styles.card}>
           <SignUpForm />
