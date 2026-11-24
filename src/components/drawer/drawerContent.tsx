@@ -1,8 +1,9 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { DrawerContentScrollView, type DrawerContentComponentProps } from "expo-router/drawer";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useAuthStore } from "@/store/authStore";
 import { Colors } from "@/constants/colors";
+import { Button } from "../common/button";
 
 const SECTIONS = [
   {
@@ -48,9 +49,13 @@ export function DrawerContent(props: DrawerContentComponentProps) {
           </View>
         ))}
 
-        <Pressable onPress={logout} style={styles.logout}>
-          <Text style={styles.item}>Logout</Text>
-        </Pressable>
+        <Button 
+          title="Logout"
+          onPress={logout} 
+          variant="light"
+          style={styles.logout}
+        />
+    
       </DrawerContentScrollView>
     </LinearGradient>
   );
@@ -63,7 +68,7 @@ const styles = StyleSheet.create({
   name: { color: Colors.text, fontSize: 14, marginBottom: 8 },
   email: { color: Colors.text, fontSize: 13 },
   section: { marginBottom: 24 },
-  sectionTitle: { color: Colors.text, fontFamily: "Inter_700Bold", fontSize: 14, marginBottom: 8 },
-  item: { color: Colors.text, fontSize: 13, paddingVertical: 6, paddingLeft: 12 },
-  logout: { marginTop: "auto", paddingBottom: 24 },
+  sectionTitle: { color: Colors.text, fontFamily: "Inter_700Bold", fontSize: 18, marginBottom: 8 },
+  item: { color: Colors.text, fontSize: 14, paddingVertical: 8, paddingLeft: 12 },
+  logout: { marginTop: "auto", marginBottom: 24, width: 225 }
 });
